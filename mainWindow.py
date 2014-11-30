@@ -9,6 +9,7 @@ import connection
 from sensor import SensorAlarm
 from target import TargetAlarm
 from x305 import x305Thread
+from eventmodel import QSqlQueryColorModel
 
 ( Ui_MainWindow, QMainWindow ) = uic.loadUiType('MainWindow.ui')
 
@@ -66,7 +67,7 @@ class MainWindow(QMainWindow):
         self.CreateTableEvent()
         self.InitUserPage()
         self.ui.splitter.setStretchFactor(0,1)
-        self.SaveEvent('СТАРТ системы',0,4,self.UserId)
+        self.SaveEvent('СТАРТ системы',-1,0,self.UserId)
 
         self.x305Read=x305Thread("COM7",1900,0.1)
         self.x305Read.notifyProgress.connect(self.setAlarm)
@@ -203,35 +204,45 @@ class MainWindow(QMainWindow):
 #---------HomePage End--------------------------------------------------------------------------------------------------
 #--------Event_page-----------------------------------------------------------------------------------------------------
     def CreateTableEvent(self):
-        self.tableEventModel = QtSql.QSqlQueryModel(self)
-        sql='SELECT event.created,sensor.info,stype.title,level.title,event.info,user.username ' \
+        self.tableEventModel = QSqlQueryColorModel(self)
+        sql='SELECT event.created,sensor.info,stype.title,level.id,level.title,event.info,user.username ' \
             'FROM  (event INNER JOIN sensor ON event.sensor_id=sensor.id) ' \
             'INNER JOIN stype ON sensor.type_id=stype.id ' \
             'INNER JOIN level ON event.level_id=level.id   ' \
             'INNER JOIN user ON event.user_id=user.id   ' \
             'ORDER BY event.id DESC LIMIT 1000'
         print(self.tableEventModel.setQuery(sql))
+        """
+        columns:
+            0:event.created,
+            1:sensor.info,
+            2:stype.title,
+            3:level.id,
+            4:level.title,
+            5:event.info,
+            6:user.username 
+        """
 
         self.ui.tableEvent.setModel(self.tableEventModel)
         self.ui.tableEvent.setSelectionMode(QAbstractItemView.SingleSelection)
         self.ui.tableEvent.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.ui.tableEvent.resizeColumnToContents(0)
-        self.ui.tableEvent.resizeColumnToContents(1)
-        self.ui.tableEvent.resizeColumnToContents(2)
-        self.ui.tableEvent.resizeColumnToContents(3)
-        self.ui.tableEvent.resizeColumnToContents(4)
-        self.ui.tableEvent.resizeColumnToContents(5)
-        self.ui.tableEvent.horizontalHeader().setResizeMode(4,QHeaderView.Stretch)
+        #for column in range( self.tableEventModel.columnCount()):
+        #    self.ui.tableEvent.resizeColumnToContents(column)
+       
+        self.ui.tableEvent.resizeColumnsToContents()
+        self.ui.tableEvent.hideColumn(3)
+        self.ui.tableEvent.horizontalHeader().setResizeMode(5,QHeaderView.Stretch)
         self.tableEventModel.setHeaderData(0, Qt.Horizontal, "Дата/Время");
         self.tableEventModel.setHeaderData(1, Qt.Horizontal, "Расположение");
         self.tableEventModel.setHeaderData(2, Qt.Horizontal, "Датчик");
-        self.tableEventModel.setHeaderData(3, Qt.Horizontal, "Статус");
-        self.tableEventModel.setHeaderData(4, Qt.Horizontal, "Информация");
-        self.tableEventModel.setHeaderData(5, Qt.Horizontal, "Пользователь");
+        self.tableEventModel.setHeaderData(3, Qt.Horizontal, "Статус.ID");
+        self.tableEventModel.setHeaderData(4, Qt.Horizontal, "Статус");
+        self.tableEventModel.setHeaderData(5, Qt.Horizontal, "Информация");
+        self.tableEventModel.setHeaderData(6, Qt.Horizontal, "Пользователь");
         self.tm.select()
     def closeEvent(self, event):
-        self.SaveEvent('ОТКЛЮЧЕНИЕ системы',0,3,self.UserId)
-        print("-CloseProgramm")
+        self.SaveEvent('ОТКЛЮЧЕНИЕ системы',-2,0,self.UserId)
+        print("-CloseProgramm-")
 
     def SaveEvent(self,info,sensor_id,level_id,user_id):
         query = QtSql.QSqlQuery()
@@ -272,7 +283,7 @@ class MainWindow(QMainWindow):
             self.dateLabel.setText('<b>[Пользователь: {} - авторизован]'.format(login))
             self.dateLabel.setStyleSheet("QLabel {  color : green; }")
             self.UserId=query.value(0)
-            self.SaveEvent('Авторизация пользователя',0,4,self.UserId)
+            self.SaveEvent('Авторизация пользователя',-3,0,self.UserId)
         else:
             self.dateLabel.setText('[{}]'.format('Ошибка авторизации. Не верный пароль'))
             self.dateLabel.setStyleSheet("QLabel {  color : red; }")

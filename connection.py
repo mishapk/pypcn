@@ -54,7 +54,12 @@ def insertDB():
     query = QtSql.QSqlQuery()
     sql=[]
     sql.append
-    sql.append('INSERT INTO sensor(id,address,x,y,info,title,type_id)VALUES(0,-1,0,0,"Данная система","Cистема",0);')
+    #Системная информация
+    sql.append('INSERT INTO sensor(id,address,x,y,title,info,type_id)VALUES(0,-1,0,0," ","Система",0);')
+    sql.append('INSERT INTO sensor(id,address,x,y,title,info,type_id)VALUES(-1,-1,0,0," ","Вход в систеу",0);')
+    sql.append('INSERT INTO sensor(id,address,x,y,title,info,type_id)VALUES(-2,-1,0,0," ","Выход из системы",0);')
+    sql.append('INSERT INTO sensor(id,address,x,y,title,info,type_id)VALUES(-3,-1,0,0," ","Авторизация",0);')
+    #Датчики
     sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(161,717,343,"Место хранеия кислоты","U2.1",2);')
     sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(161,717,259,"Место хранеия кислоты","U2.2",2);')
     sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(162,273,247,"Травильные ванны","U2.3",2);')
@@ -65,12 +70,13 @@ def insertDB():
     sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(166,690,350,"Место хранеия кислоты","U3.1",5);')
     sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(166,640,350,"Место хранеия кислоты","U3.2",5);')
 
+    sql.append('INSERT INTO level(id,title,info)VALUES(0,"","системная");')
     sql.append('INSERT INTO level(id,title,info)VALUES(1,"Порог I","докритичесикй");')
     sql.append('INSERT INTO level(id,title,info)VALUES(2,"Порог II","критичесикй");')
     sql.append('INSERT INTO level(id,title,info)VALUES(3,"Отказ","неисправность");')
     sql.append('INSERT INTO level(id,title,info)VALUES(4,"Норма","нормальное сотояние");')
-
-    sql.append('INSERT INTO stype(id,title,info)VALUES(0,"Система","ситемная информация");')
+    
+    sql.append('INSERT INTO stype(id,title,info)VALUES(0,"Ситемная информация","ситемная информация");')
     sql.append('INSERT INTO stype(id,title,info)VALUES(1,"Уровень","датчик уровня");')
     sql.append('INSERT INTO stype(id,title,info)VALUES(2,"Пролив","датчик пролива");')
     sql.append('INSERT INTO stype(id,title,info)VALUES(3,"Давление","датчик давления");')
