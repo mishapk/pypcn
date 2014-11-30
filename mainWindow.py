@@ -185,6 +185,7 @@ class MainWindow(QMainWindow):
         #y=self.item.pos().y()
         #self.targetAlarm.animatePos(QPointF(x-20,y-20),QPointF(x+20,y+20))
         self.setAlarm(162,2)
+        QSound('sounds/alarm.wav').play()
 
     def setAlarm(self,sensor_address, sensor_level):
         for p in self.GI:
