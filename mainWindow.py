@@ -188,10 +188,10 @@ class MainWindow(QMainWindow):
         self.setAlarm(162,2)
         output = Phonon.AudioOutput(Phonon.MusicCategory,self)
         print('volume=',output.volume())
-        output.setVolume(10/100)
+        output.setVolume(100/100)
         m_media = Phonon.MediaObject(self)
         Phonon.createPath(m_media, output)
-        m_media.setCurrentSource(Phonon.MediaSource("sounds/1.wav"))
+        m_media.setCurrentSource(Phonon.MediaSource("sounds/1.ogg"))
         m_media.play()
 
 
