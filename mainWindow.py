@@ -186,16 +186,18 @@ class MainWindow(QMainWindow):
         #y=self.item.pos().y()
         #self.targetAlarm.animatePos(QPointF(x-20,y-20),QPointF(x+20,y+20))
         self.setAlarm(162,2)
-        #output = Phonon.AudioOutput(Phonon.MusicCategory,self)
-        #m_media = Phonon.MediaObject(self)
-        #Phonon.createPath(m_media, output)
-        #m_media.setCurrentSource(Phonon.MediaSource("sounds/1.mp3"))
-        #m_media.play()
+        output = Phonon.AudioOutput(Phonon.MusicCategory,self)
+        print('volume=',output.volume())
+        output.setVolume(10/100)
+        m_media = Phonon.MediaObject(self)
+        Phonon.createPath(m_media, output)
+        m_media.setCurrentSource(Phonon.MediaSource("sounds/1.wav"))
+        m_media.play()
 
-        source = Phonon.MediaSource("sounds/1.wav")
-        self.player = Phonon.createPlayer(Phonon.MusicCategory)
-        self.player.setCurrentSource(source)
-        self.player.play()
+
+        #self.player = Phonon.createPlayer(Phonon.MusicCategory)
+        #self.player.setCurrentSource(Phonon.MediaSource("sounds/1.wav"))
+        #self.player.play()
 
     def setAlarm(self,sensor_address, sensor_level):
         for p in self.GI:
