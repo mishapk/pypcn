@@ -5,6 +5,7 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import uic, QtCore, QtSql
+from PyQt4.phonon import Phonon
 import connection
 from sensor import SensorAlarm
 from target import TargetAlarm
@@ -69,9 +70,9 @@ class MainWindow(QMainWindow):
         self.ui.splitter.setStretchFactor(0,1)
         self.SaveEvent('СТАРТ системы',-1,0,self.UserId)
 
-        self.x305Read=x305Thread("COM7",1900,0.1)
-        self.x305Read.notifyProgress.connect(self.setAlarm)
-        self.x305Read.start()
+        #self.x305Read=x305Thread("COM7",1900,0.1)
+#        self.x305Read.notifyProgress.connect(self.setAlarm)
+ #       self.x305Read.start()
 
     def timer_Widget(self):
         timerWidget = QWidget(self)
@@ -185,7 +186,16 @@ class MainWindow(QMainWindow):
         #y=self.item.pos().y()
         #self.targetAlarm.animatePos(QPointF(x-20,y-20),QPointF(x+20,y+20))
         self.setAlarm(162,2)
-        QSound('sounds/alarm.wav').play()
+        #output = Phonon.AudioOutput(Phonon.MusicCategory,self)
+        #m_media = Phonon.MediaObject(self)
+        #Phonon.createPath(m_media, output)
+        #m_media.setCurrentSource(Phonon.MediaSource("sounds/1.mp3"))
+        #m_media.play()
+
+        source = Phonon.MediaSource("sounds/1.wav")
+        self.player = Phonon.createPlayer(Phonon.MusicCategory)
+        self.player.setCurrentSource(source)
+        self.player.play()
 
     def setAlarm(self,sensor_address, sensor_level):
         for p in self.GI:
@@ -301,7 +311,7 @@ if __name__ == '__main__':
     app.setApplicationName('PCN')
 
     sshFile="./darkorange.stylesheet"
-    sshFile="styles/qmc2-black-0.10/qmc2-black-0.10.qss "
+    sshFile="styles/qmc2-black-0.10/qmc2-black-0.10.qss"
     #sshFile="styles/qmc2-fire-0.8/qmc2-fire-0.8.qss "
     with open(sshFile,"r") as fh:
         app.setStyleSheet(fh.read())
