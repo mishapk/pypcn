@@ -6,9 +6,9 @@ class x305Thread(QtCore.QThread):
     szuoff=b'\x10\x03\x02\x01\x00\xda'
     WRcmd =b'\x10\x04\x01\xda'
     tk=5 # Время задержки сработки датчиков 
-    a=3
-    b=0
-    lines=[[a,b],[a,b],[a,b],[a,b],[a,b],[a,b]]
+    level=-100
+    time=0
+    lines=[[level,time],[level,time],[level,time],[level,time],[level,time],[level,time]]
     notifyProgress = QtCore.pyqtSignal(int,int)
     def __init__(self, serialPort,baudratePort,timeoutPort):
         QtCore.QThread.__init__(self)
@@ -25,7 +25,8 @@ class x305Thread(QtCore.QThread):
             #time.sleep(0.1)
             s = self.dongle.readline()
             #print('Read = ',s[4],' ',s[5])
-            self.result(s)
+            if(len(s)>5):
+                self.result(s)
     #Задержка от ложных сработок        
     def compare(self,level,i):
         tv=time.time()

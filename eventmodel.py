@@ -2,9 +2,9 @@ import sys
 from PyQt4 import QtCore, QtGui, QtSql
 from PyQt4.QtGui import QColor
 class QSqlQueryColorModel(QtSql.QSqlQueryModel):
-    def __init__(self, column):
-        super(QSqlQueryColorModel, self).__init__()
-        self.column = column
+    def __init__(self, parent = None):
+        super(QSqlQueryColorModel, self).__init__(parent)
+
     def data(self, index, role):
         value = QtSql.QSqlQueryModel.data(self, index, role)
         if role == QtCore.Qt.TextColorRole and index.column() == 4:
@@ -14,7 +14,7 @@ class QSqlQueryColorModel(QtSql.QSqlQueryModel):
             if level==2:
                 return QtGui.QColor(QtCore.Qt.red)
             if level==3:
-                return QtGui.QColor(QtCore.Qt.darkBlue)
+                return QtGui.QColor(QtCore.Qt.blue)
             if level==4:
                 return QtGui.QColor(QtCore.Qt.green)
             

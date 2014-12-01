@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form1</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="myres.qrc">
+    <normaloff>:/icons/Free Flat Vector Icons/Framed/PNG/64/Pyramid.png</normaloff>:/icons/Free Flat Vector Icons/Framed/PNG/64/Pyramid.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -27,7 +31,7 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <widget class="QGraphicsView" name="graphicsView">
@@ -1011,6 +1015,70 @@ border: 1;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushB_p</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>bPrinaty()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>466</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushB_cs</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>bCS()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>466</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushB_ucs</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>bUCS()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>276</x>
+     <y>466</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushB_ncs</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>bNCS()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>466</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveSansors()</slot>
@@ -1021,5 +1089,9 @@ border: 1;
   <slot>enterBackSpaceLogin()</slot>
   <slot>enterEnterLogin()</slot>
   <slot>enterUsernameLogin(QModelIndex)</slot>
+  <slot>bPrinaty()</slot>
+  <slot>bCS()</slot>
+  <slot>bUCS()</slot>
+  <slot>bNCS()</slot>
  </slots>
 </ui>

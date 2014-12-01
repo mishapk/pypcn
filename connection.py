@@ -34,12 +34,21 @@ def createDB():
     sql.append('create table stype(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
                         ' title text,'
                         ' info text);')
+    #Таблица журнала событи
     sql.append('create table event(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
                        'created datetime default (datetime(\'now\',\'localtime\')),'
                         ' sensor_id INTEGER,'
                         ' level_id INTEGER,'
                         ' user_id INTEGER,'
-                        ' info text);')
+                        ' info text,'
+                        ' status_id INTEGER,'
+                        ' status_result_id INTEGER,'
+                        ' monitoring_result'
+                        ');')
+    #Status_id. Статус сообщения. 0- не принят, 1-принят автоматически, 2- принят в ручную
+    #Status_Result_id. Статус подтверждения. 0- Отмена, 1-Угроза ЧС, 2- ЧС
+    #Monitoring_result -Результат доставки сообщения на сервер мониторинга
+
     sql.append('CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
                'username TEXT,'
                'password TEXT);')

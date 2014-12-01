@@ -7,6 +7,8 @@ from PyQt4.QtGui import *
 from PyQt4 import uic, QtCore, QtSql
 from PyQt4.phonon import Phonon
 import connection
+
+
 from sensor import SensorAlarm
 from target import TargetAlarm
 from x305 import x305Thread
@@ -20,8 +22,13 @@ Mode = 0
 
 class MainWindow(QMainWindow):
     """MainWindow inherits QMainWindow"""
-
-
+    #Режим работы таймера(0- системное время; 1- обратный очте;)
+    timerMode=0
+    timerInterval1 = QTime(0,0,10)
+    timerInterval2 = QTime(0,0,10)
+    ti_1=QTime
+    ti_2=QTime
+    s_leve=-1
     def __init__(self, parent=None):
         """
 
@@ -68,18 +75,20 @@ class MainWindow(QMainWindow):
         self.CreateTableEvent()
         self.InitUserPage()
         self.ui.splitter.setStretchFactor(0,1)
+        self.ui.splitter.setSizes([0])
+        self.ui.groupBox.hide()
         self.SaveEvent('СТАРТ системы',-1,0,self.UserId)
 
-        #self.x305Read=x305Thread("COM7",1900,0.1)
-#        self.x305Read.notifyProgress.connect(self.setAlarm)
- #       self.x305Read.start()
+        self.x305Read=x305Thread("COM7",1900,0.1)
+        self.x305Read.notifyProgress.connect(self.setAlarm)
+        self.x305Read.start()
 
     def timer_Widget(self):
         timerWidget = QWidget(self)
         self.spacer = QWidget(self)
         self.spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.lcd = QLCDNumber(self)
-        self.lcd.setNumDigits(8)
+        self.lcd.setNumDigits(10)
         self.lcd.setMinimumHeight(36)
         self.lcd.setMinimumWidth(150)
         self.dateLabel = QLabel(self)
@@ -96,12 +105,67 @@ class MainWindow(QMainWindow):
         self.showlcd()
 
     def showlcd(self):
-        time = QtCore.QTime.currentTime()
-        text = time.toString('hh:mm:ss')
-        self.lcd.display(text)
+        if(self.timerMode==0):
+
+            time=QTime.currentTime()
+            text=QTime.toString(time)
+            self.lcd.display(text)
+        if(self.timerMode==1):
+            self.ti_1=self.ti_1.addSecs(-1)
+            time=self.ti_1
+            text=QTime.toString(time)
+            self.lcd.display(text)
+            if(self.ti_1<=QTime(0,0,0)):
+                self.bPrinaty()
+
+        if(self.timerMode==2):
+            self.ti_2=self.ti_2.addSecs(-1)
+            time=self.ti_2
+            text=QTime.toString(time)
+            self.lcd.display(text)
+            if(self.ti_2<=QTime(0,0,0)):
+                self.bUCS()
         #date = QtCore.QDate.currentDate()
         #text = date.toString('[dd-MM-yyyy]')
         #self.dateLabel.setText(text)
+#Обработка клавиш принятия решения--------------------------------------------------------------------------------------
+    def setTimerMode(self,mode):
+
+        self.timerMode=mode
+        if(mode==0):
+            self.ui.frame_cs.hide()
+            self.targetAlarm.GroupAnimation.stop()
+            self.targetAlarm.hide()
+        if(mode==1):
+            self.ti_1 = self.timerInterval1
+            self.ui.frame_cs.show()
+            self.ui.pushB_p.show()
+            self.ui.pushB_cs.hide()
+            self.ui.pushB_ucs.hide()
+            self.ui.pushB_ncs.hide()
+        if(mode==2):
+            self.ti_2 = self.timerInterval2
+            self.ui.frame_cs.show()
+            self.ui.pushB_p.hide()
+            self.ui.pushB_cs.show()
+            self.ui.pushB_ucs.show()
+            self.ui.pushB_ncs.show()
+    def bPrinaty(self):
+        print('Нажата кнопка [Принять]')
+        if(self.s_leve in[1,2]):
+            self.setTimerMode(2)
+        if(self.s_leve in[3,4]):
+            self.setTimerMode(0)
+    def bCS(self):
+        print('Нажата кнопка [Наличие ЧС]')
+        self.setTimerMode(0)
+    def bUCS(self):
+        print('Нажата кнопка [Угроза ЧС]')
+        self.setTimerMode(0)
+    def bNCS(self):
+        print('Нажата кнопка [Отмена]')
+        self.setTimerMode(0)
+#Обработка клавиш принятия решения [Конец]------------------------------------------------------------------------------
 #----------HomePage-----------------------------------------------------------------------------------------------------
     def sensorSymbol(self,ids,adr,x,y,size,level,types):
         item=SensorAlarm(0,0,size,level,types)
@@ -142,6 +206,7 @@ class MainWindow(QMainWindow):
 
         self.targetAlarm = TargetAlarm(0,0,size)
         self.targetAlarm.setPos(x-size*3/2+size/2,y-size*3/2+size/2)
+        self.targetAlarm.hide()
         self.scene.addItem(self.targetAlarm )
         self.ui.graphicsView.setScene(self.scene)
         self.CreateTableSensor()
@@ -198,7 +263,7 @@ class MainWindow(QMainWindow):
         #self.player = Phonon.createPlayer(Phonon.MusicCategory)
         #self.player.setCurrentSource(Phonon.MediaSource("sounds/1.wav"))
         #self.player.play()
-
+#Слот сигнала новых сработок
     def setAlarm(self,sensor_address, sensor_level):
         for p in self.GI:
             if(p.address==sensor_address):
@@ -208,7 +273,9 @@ class MainWindow(QMainWindow):
                 id_s=p.id
         self.targetAlarm.setPosTarget(x,y)
         self.targetAlarm.animateRotation()
-        self.ui.frame_cs.show()
+        self.targetAlarm.show()
+        self.s_leve=sensor_level
+        self.setTimerMode(1)
 
         self.ui.graphicsView.centerOn(x,y)
         self.SaveEvent('Датчик',id_s,sensor_level,self.UserId)
