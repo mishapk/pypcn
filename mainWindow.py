@@ -24,11 +24,15 @@ class MainWindow(QMainWindow):
     """MainWindow inherits QMainWindow"""
     #Режим работы таймера(0- системное время; 1- обратный очте;)
     timerMode=0
+    user_login=''
     timerInterval1 = QTime(0,0,10)
     timerInterval2 = QTime(0,0,10)
     ti_1=QTime
     ti_2=QTime
-    s_leve=-1
+    s_leve=-1 # Сотояние датчика (уровень)
+    s_id=-1   # ID датчика
+    br_id=-1  # ID конопки резульат
+
     def __init__(self, parent=None):
         """
 
@@ -77,7 +81,7 @@ class MainWindow(QMainWindow):
         self.ui.splitter.setStretchFactor(0,1)
         self.ui.splitter.setSizes([0])
         self.ui.groupBox.hide()
-        self.SaveEvent('СТАРТ системы',-1,0,self.UserId)
+        self.SaveEvent('СТАРТ системы',-1,0,self.UserId,-1,-1)
 
         self.x305Read=x305Thread("COM7",1900,0.1)
         self.x305Read.notifyProgress.connect(self.setAlarm)
@@ -110,13 +114,14 @@ class MainWindow(QMainWindow):
             time=QTime.currentTime()
             text=QTime.toString(time)
             self.lcd.display(text)
+
         if(self.timerMode==1):
             self.ti_1=self.ti_1.addSecs(-1)
             time=self.ti_1
             text=QTime.toString(time)
             self.lcd.display(text)
             if(self.ti_1<=QTime(0,0,0)):
-                self.bPrinaty()
+                self.aPrinaty(1)
 
         if(self.timerMode==2):
             self.ti_2=self.ti_2.addSecs(-1)
@@ -124,7 +129,8 @@ class MainWindow(QMainWindow):
             text=QTime.toString(time)
             self.lcd.display(text)
             if(self.ti_2<=QTime(0,0,0)):
-                self.bUCS()
+                self.aUCS(1)
+
         #date = QtCore.QDate.currentDate()
         #text = date.toString('[dd-MM-yyyy]')
         #self.dateLabel.setText(text)
@@ -136,6 +142,7 @@ class MainWindow(QMainWindow):
             self.ui.frame_cs.hide()
             self.targetAlarm.GroupAnimation.stop()
             self.targetAlarm.hide()
+            self.getMessageDB()
         if(mode==1):
             self.ti_1 = self.timerInterval1
             self.ui.frame_cs.show()
@@ -150,21 +157,38 @@ class MainWindow(QMainWindow):
             self.ui.pushB_cs.show()
             self.ui.pushB_ucs.show()
             self.ui.pushB_ncs.show()
-    def bPrinaty(self):
-        print('Нажата кнопка [Принять]')
+
+    def aPrinaty(self,m):
         if(self.s_leve in[1,2]):
             self.setTimerMode(2)
         if(self.s_leve in[3,4]):
+            self.saveStatusP(self.s_id,m,0)
             self.setTimerMode(0)
+    def aCS(self,m):
+        self.saveStatusP(self.s_id,m,1)
+        self.setTimerMode(0)
+    def aUCS(self,m):
+        self.saveStatusP(self.s_id,m,2)
+        self.setTimerMode(0)
+    def aNCS(self,m):
+        self.saveStatusP(self.s_id,m,3)
+        self.setTimerMode(0)
+
+    def bPrinaty(self):
+        print('Нажата кнопка [Принять]')
+        self.aPrinaty(2)
+
     def bCS(self):
         print('Нажата кнопка [Наличие ЧС]')
-        self.setTimerMode(0)
+        self.aCS(2)
+
     def bUCS(self):
         print('Нажата кнопка [Угроза ЧС]')
-        self.setTimerMode(0)
+        self.aUCS(2)
+
     def bNCS(self):
         print('Нажата кнопка [Отмена]')
-        self.setTimerMode(0)
+        self.aNCS(2)
 #Обработка клавиш принятия решения [Конец]------------------------------------------------------------------------------
 #----------HomePage-----------------------------------------------------------------------------------------------------
     def sensorSymbol(self,ids,adr,x,y,size,level,types):
@@ -271,26 +295,70 @@ class MainWindow(QMainWindow):
                 x=p.pos().x()
                 y=p.pos().y()
                 id_s=p.id
-        self.targetAlarm.setPosTarget(x,y)
-        self.targetAlarm.animateRotation()
-        self.targetAlarm.show()
-        self.s_leve=sensor_level
-        self.setTimerMode(1)
 
-        self.ui.graphicsView.centerOn(x,y)
-        self.SaveEvent('Датчик',id_s,sensor_level,self.UserId)
+
+
+
+
+        self.SaveEvent('Датчик',id_s,sensor_level,self.UserId,0,-1)
+        self.getMessageDB()
+#----Функция обработки накомпленных сообщений  о сработке---------------------------------------------------------------
+    def getMessageDB(self):
+
+        fields='sensor.x, sensor.y, sensor.info, stype.info, level.title, event.created, event.id,level.id'
+        where='WHERE((event.status_id=0)and(level.id in(1,2,3,4)))'
+        sql=sql=self.formatSqlEvent(fields,where)
+        query = QtSql.QSqlQuery(sql)
+        if(query.next()):
+            x = query.value(0)
+            y = query.value(1)
+            place=query.value(2)
+            sensor=query.value(3)
+            level= query.value(4)
+            created= query.value(5)
+            self.s_id=query.value(6)
+            self.s_leve=query.value(7)
+            info='<br>{}, {} : {} <br>[{}]'.format(place,sensor,level,created)
+            self.targetAlarm.setPosTarget(x,y)
+            self.targetAlarm.animateRotation()
+            self.targetAlarm.show()
+            self.ui.graphicsView.centerOn(x,y)
+            self.ui.label_info_cs.setText('<b><font color="red">{}</font></b><font color="blue"> {}</font>'.format('Внимание!',info))
+            self.setTimerMode(1)
+        #if query.next():
+
 
 
 #---------HomePage End--------------------------------------------------------------------------------------------------
+    def saveStatusP(self,id,status,button):
+        sql='UPDATE event SET status_id={},button_result_id={}, user_id={} WHERE(id={} )'.format(status,button,self.UserId,id,)
+        query = QtSql.QSqlQuery(sql)
+        self.tableEventModel.setQuery( self.tableEventModel.query().lastQuery() )
+        self.br_id=button
+        print(sql)
 #--------Event_page-----------------------------------------------------------------------------------------------------
-    def CreateTableEvent(self):
-        self.tableEventModel = QSqlQueryColorModel(self)
-        sql='SELECT event.created,sensor.info,stype.title,level.id,level.title,event.info,user.username ' \
+
+    def formatSqlEvent(self,fields,where):
+        sql='SELECT {} ' \
             'FROM  (event INNER JOIN sensor ON event.sensor_id=sensor.id) ' \
             'INNER JOIN stype ON sensor.type_id=stype.id ' \
             'INNER JOIN level ON event.level_id=level.id   ' \
             'INNER JOIN user ON event.user_id=user.id   ' \
+            'INNER JOIN status ON event.status_id=status.id ' \
+            'INNER JOIN button ON event.button_result_id=button.id ' \
+            ' {} ' \
             'ORDER BY event.id DESC LIMIT 1000'
+        result=sql.format(fields,where)
+        return result
+
+    def CreateTableEvent(self):
+        self.tableEventModel = QSqlQueryColorModel(self)
+        fields='event.created,sensor.info,stype.title,level.id,level.title,event.info,user.username,' \
+               'status.title as "Принято",' \
+               'button.title as "Ситуация"'
+        sql=self.formatSqlEvent(fields,'')
+        print('Ev=',sql)
+
         print(self.tableEventModel.setQuery(sql))
         """
         columns:
@@ -321,12 +389,13 @@ class MainWindow(QMainWindow):
         self.tableEventModel.setHeaderData(6, Qt.Horizontal, "Пользователь");
         self.tm.select()
     def closeEvent(self, event):
-        self.SaveEvent('ОТКЛЮЧЕНИЕ системы',-2,0,self.UserId)
+        self.SaveEvent('ОТКЛЮЧЕНИЕ системы',-2,0,self.UserId,-1,-1)
         print("-CloseProgramm-")
 
-    def SaveEvent(self,info,sensor_id,level_id,user_id):
+    def SaveEvent(self,info,sensor_id,level_id,user_id,status_id,button_result_id):
         query = QtSql.QSqlQuery()
-        sql='INSERT INTO  event(info,sensor_id, level_id, user_id)VALUES("{}",{},{},{});'.format(info,sensor_id,level_id,user_id)
+        sql='INSERT INTO  event(info,sensor_id, level_id, user_id, status_id, button_result_id)' \
+            'VALUES("{}",{},{},{},{},{});'.format(info,sensor_id,level_id,user_id,status_id,button_result_id)
         print(query.exec_(sql),'SQL=',sql)
         self.tableEventModel.setQuery( self.tableEventModel.query().lastQuery() )
 
@@ -335,7 +404,7 @@ class MainWindow(QMainWindow):
     def enterUsernameLogin(self,index):
         rec=QtSql.QSqlRecord()
         rec=self.tmUser.record(index.row())
-        self.ui.lineEditLogin.setText(rec.value("username"))
+        self.user_login=rec.value("username")
         self.ui.lineEditPassword.clear()
     def InitUserPage(self):
         self.tmUser = QtSql.QSqlQueryModel(self)
@@ -355,7 +424,8 @@ class MainWindow(QMainWindow):
         self.ui.lineEditPassword.setText(newtxt)
     def enterEnterLogin(self):
         query = QtSql.QSqlQuery()
-        login=self.ui.lineEditLogin.text()
+
+        login=self.user_login
         password= self.ui.lineEditPassword.text()
         sql='SELECT * FROM user WHERE ((username="{}")and (password="{}"))'.format(login,password)
         query.exec_(sql)
@@ -363,7 +433,7 @@ class MainWindow(QMainWindow):
             self.dateLabel.setText('<b>[Пользователь: {} - авторизован]'.format(login))
             self.dateLabel.setStyleSheet("QLabel {  color : green; }")
             self.UserId=query.value(0)
-            self.SaveEvent('Авторизация пользователя',-3,0,self.UserId)
+            self.SaveEvent('Авторизация пользователя',-3,0,self.UserId,-1,-1)
         else:
             self.dateLabel.setText('[{}]'.format('Ошибка авторизации. Не верный пароль'))
             self.dateLabel.setStyleSheet("QLabel {  color : red; }")
@@ -381,10 +451,13 @@ if __name__ == '__main__':
 
     sshFile="./darkorange.stylesheet"
     sshFile="styles/qmc2-black-0.10/qmc2-black-0.10.qss"
+    sshFile="styles/qmc2-xmas-0.5/qmc2-xmas-0.5.qss"
+    #sshFile="styles/qmc2-machinery-0.3/qmc2-machinery-0.3.qss"
     #sshFile="styles/qmc2-fire-0.8/qmc2-fire-0.8.qss "
+    sshFile="styles/qmc2-metal-0.9/qmc2-metal-0.9.qss"
     with open(sshFile,"r") as fh:
         app.setStyleSheet(fh.read())
-    app.setStyle('plastique')
+    #app.setStyle('plastique')
     #originalPalette = QApplication.palette()
     #app.setPalette(QApplication.style().standardPalette())
     #app.setPalette(originalPalette)

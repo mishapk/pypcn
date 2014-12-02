@@ -42,12 +42,18 @@ def createDB():
                         ' user_id INTEGER,'
                         ' info text,'
                         ' status_id INTEGER,'
-                        ' status_result_id INTEGER,'
+                        ' button_result_id INTEGER,'
                         ' monitoring_result'
                         ');')
     #Status_id. Статус сообщения. 0- не принят, 1-принят автоматически, 2- принят в ручную
     #Status_Result_id. Статус подтверждения. 0- Отмена, 1-Угроза ЧС, 2- ЧС
     #Monitoring_result -Результат доставки сообщения на сервер мониторинга
+    sql.append('CREATE TABLE status(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+               'title TEXT,'
+               'info TEXT);')
+    sql.append('CREATE TABLE button(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+               'title TEXT,'
+               'info TEXT);')
 
     sql.append('CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
                'username TEXT,'
@@ -90,12 +96,24 @@ def insertDB():
     sql.append('INSERT INTO stype(id,title,info)VALUES(2,"Пролив","датчик пролива");')
     sql.append('INSERT INTO stype(id,title,info)VALUES(3,"Давление","датчик давления");')
     sql.append('INSERT INTO stype(id,title,info)VALUES(4,"Температура","датчик температуры");')
-    sql.append('INSERT INTO stype(id,title,info)VALUES(5,"Концентрация","датчик концентрации");')
+    sql.append('INSERT INTO stype(id,title,info)VALUES(5,"Концентрация","концентрация паров кислоты");')
     sql.append('INSERT INTO stype(id,title,info)VALUES(6,"Ручной извещатель","ручной извещатель");')
 
-    sql.append('INSERT INTO user(id,username,password)VALUES(0,"Нет","");')
+    sql.append('INSERT INTO user(id,username,password)VALUES(0,"нет","");')
     sql.append('INSERT INTO user(id,username,password)VALUES(1,"Admin","7777");')
     sql.append('INSERT INTO user(id,username,password)VALUES(2,"User","1111");')
+
+    sql.append('INSERT INTO status(id,title,info)VALUES(-1,"","Система");')
+    sql.append('INSERT INTO status(id,title,info)VALUES(0,"Не принято","");')
+    sql.append('INSERT INTO status(id,title,info)VALUES(1,"Автоматически","");')
+    sql.append('INSERT INTO status(id,title,info)VALUES(2,"Вручную","");')
+
+    sql.append('INSERT INTO button(id,title,info)VALUES(-1,"","Система");')
+    sql.append('INSERT INTO button(id,title,info)VALUES(0,"Принята","");')
+    sql.append('INSERT INTO button(id,title,info)VALUES(1,"ЧС","");')
+    sql.append('INSERT INTO button(id,title,info)VALUES(2,"Угроза ЧС","");')
+    sql.append('INSERT INTO button(id,title,info)VALUES(3,"Отмена","");')
+
     print('Start Insert DB')
     for s in sql:
         if(query.exec_(s)==False):

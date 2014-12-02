@@ -1,19 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eec4c501-3486-407e-9f37-9baaa9776656" name="Default" comment="Phonon Audio Player">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/rondoas_Icon.ico" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/readmy.txt" />
+    <list default="true" id="eec4c501-3486-407e-9f37-9baaa9776656" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/about-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/branch-closed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/branch-closed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/branch-end.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/branch-end.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/branch-more.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/branch-more.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/branch-open.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/branch-open.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_inter_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_inter_enabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_inter_enabled_hover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_inter_enabled_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_off_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_off_enabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_off_enabled_hover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_off_enabled_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_on_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_on_enabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_on_enabled_hover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/checkbox_on_enabled_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/down-arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/down-arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/gamelist-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/gamelist-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/gamelist-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/main-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/main-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/menu_indicator.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/menu_indicator_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/ok.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/ok.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_off_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_off_enabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_off_enabled_hover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_off_enabled_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_on_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_on_enabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_on_enabled_hover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/radiobutton_on_enabled_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_down_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_down_enabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_down_enabled_hover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_down_enabled_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_up_disabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_up_enabled.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_up_enabled_hover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/spin_up_enabled_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/up-arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/up-arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/vline.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/vline.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-machinery-0.3/qmc2-machinery-0.3.qss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-metal-0.9/qmc2-metal-0.9.qss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/qmc2-xmas-0.5/qmc2-xmas-0.5.qss" />
       <change type="DELETED" beforePath="C:\Programming\python\pypcn\data.db" afterPath="" />
-      <change type="DELETED" beforePath="C:\Programming\python\pypcn\myres_rc.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MainWindow.ui" afterPath="$PROJECT_DIR$/MainWindow.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connection.py" afterPath="$PROJECT_DIR$/connection.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eventmodel.py" afterPath="$PROJECT_DIR$/eventmodel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainWindow.py" afterPath="$PROJECT_DIR$/mainWindow.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myres.qrc" afterPath="$PROJECT_DIR$/myres.qrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/start1.iml" afterPath="$PROJECT_DIR$/.idea/start1.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myres_rc.py" afterPath="$PROJECT_DIR$/myres_rc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readmy.txt" afterPath="$PROJECT_DIR$/readmy.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x305.py" afterPath="$PROJECT_DIR$/x305.py" />
     </list>
     <ignored path="start1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,24 +86,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mainWindow.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="mainWindow.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.3125" vertical-offset="7582" max-vertical-offset="8140">
-              <caret line="386" column="4" selection-start-line="386" selection-start-column="4" selection-end-line="386" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.5515695" vertical-offset="8811" max-vertical-offset="9600">
+              <caret line="459" column="5" selection-start-line="459" selection-start-column="5" selection-end-line="459" selection-end-column="5" />
               <folding>
                 <element signature="e#21#31#0" expanded="true" />
+                <marker date="1417535307515" expanded="true" signature="439:16690" placeholder="..." />
+                <marker date="1417535307515" expanded="true" signature="5815:5882" placeholder="..." />
+                <marker date="1417535307515" expanded="true" signature="11209:11501" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="eventmodel.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/eventmodel.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.033898305" vertical-offset="0" max-vertical-offset="600">
-              <caret line="3" column="41" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="46" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -61,30 +104,8 @@
       <file leaf-file-name="readmy.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readmy.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="250" max-vertical-offset="840">
-              <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="target.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/target.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1200" max-vertical-offset="2140">
-              <caret line="91" column="13" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_strptime.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://C:/Python34/Lib/_strptime.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6364" max-vertical-offset="10180">
-              <caret line="336" column="0" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="70" max-vertical-offset="840">
+              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -93,44 +114,10 @@
       <file leaf-file-name="connection.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/connection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="500" max-vertical-offset="2160">
-              <caret line="49" column="74" selection-start-line="49" selection-start-column="74" selection-end-line="49" selection-end-column="74" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1339" max-vertical-offset="2520">
+              <caret line="101" column="67" selection-start-line="101" selection-start-column="67" selection-end-line="101" selection-end-column="67" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="x305.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/x305.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1580">
-              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serialwin32.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://C:/Python34/Lib/site-packages/serial/serialwin32.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3964" max-vertical-offset="9280">
-              <caret line="211" column="0" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sensor.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sensor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2420">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -156,10 +143,10 @@
         <option value="$PROJECT_DIR$/myres.qrc" />
         <option value="$PROJECT_DIR$/target.py" />
         <option value="$PROJECT_DIR$/x305.py" />
+        <option value="$PROJECT_DIR$/eventmodel.py" />
         <option value="$PROJECT_DIR$/connection.py" />
         <option value="$PROJECT_DIR$/readmy.txt" />
         <option value="$PROJECT_DIR$/mainWindow.py" />
-        <option value="$PROJECT_DIR$/eventmodel.py" />
       </list>
     </option>
   </component>
@@ -239,7 +226,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sounds" />
+              <option name="myItemId" value="styles" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -253,7 +240,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
+              <option name="myItemId" value="sounds" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -263,7 +250,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="options.lastSelected" value="appearance" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.5065693" />
     <property name="options.searchVisible" value="true" />
@@ -271,6 +258,7 @@
     <property name="FullScreen" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="full.screen.before.presentation.mode" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -451,32 +439,56 @@
       <created>1417351258938</created>
       <updated>1417351258938</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Phonon Audio Player">
+      <created>1417448113362</created>
+      <updated>1417448113362</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1688" height="1028" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24969843" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14053077" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14053077" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29384965" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29384965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16742598" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16742598" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2927107" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24969843" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14053077" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2927107" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -508,15 +520,10 @@
           <caret line="190" column="26" selection-start-line="190" selection-start-column="26" selection-end-line="190" selection-end-column="26" />
           <folding>
             <element signature="e#21#31#0" expanded="true" />
+            <marker date="1417535307515" expanded="true" signature="439:16690" placeholder="..." />
+            <marker date="1417535307515" expanded="true" signature="5815:5882" placeholder="..." />
+            <marker date="1417535307515" expanded="true" signature="11209:11501" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python34/Lib/site-packages/serial/serialwin32.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3964" max-vertical-offset="9280">
-          <caret line="211" column="0" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -525,72 +532,83 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2420">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/connection.py">
+    <entry file="file://C:/Python34/Lib/site-packages/serial/serialwin32.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="500" max-vertical-offset="2160">
-          <caret line="49" column="74" selection-start-line="49" selection-start-column="74" selection-end-line="49" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python34/Lib/_strptime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6364" max-vertical-offset="10180">
-          <caret line="336" column="0" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3322034" vertical-offset="3964" max-vertical-offset="9280">
+          <caret line="211" column="0" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/x305.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="1580">
+        <state vertical-scroll-proportion="-1.2033899" vertical-offset="870" max-vertical-offset="1580">
           <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python34/Lib/_strptime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3322034" vertical-offset="6364" max-vertical-offset="10180">
+          <caret line="336" column="0" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/target.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1440" max-vertical-offset="2140">
+        <state vertical-scroll-proportion="1.0508474" vertical-offset="1200" max-vertical-offset="2140">
           <caret line="91" column="13" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="35" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readmy.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="250" max-vertical-offset="840">
-          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.3125" vertical-offset="7582" max-vertical-offset="8140">
-          <caret line="386" column="4" selection-start-line="386" selection-start-column="4" selection-end-line="386" selection-end-column="4" />
-          <folding>
-            <element signature="e#21#31#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/eventmodel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.033898305" vertical-offset="0" max-vertical-offset="600">
-          <caret line="3" column="41" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.42372882" vertical-offset="10" max-vertical-offset="600">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readmy.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="70" max-vertical-offset="840">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1339" max-vertical-offset="2520">
+          <caret line="101" column="67" selection-start-line="101" selection-start-column="67" selection-end-line="101" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5515695" vertical-offset="8811" max-vertical-offset="9600">
+          <caret line="459" column="5" selection-start-line="459" selection-start-column="5" selection-end-line="459" selection-end-column="5" />
+          <folding>
+            <element signature="e#21#31#0" expanded="true" />
+            <marker date="1417535307515" expanded="true" signature="439:16690" placeholder="..." />
+            <marker date="1417535307515" expanded="true" signature="5815:5882" placeholder="..." />
+            <marker date="1417535307515" expanded="true" signature="11209:11501" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
