@@ -27,7 +27,10 @@ def createDB():
                         ' info text,'
                         'x float ,'
                         'y float ,'
-                        'type_id INTEGER);')
+                        'type_id INTEGER,'
+                        'sounds TEXT,'
+                        'commands TEXT'
+                        ');')
     sql.append('create table level(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
                         ' title text,'
                         ' info text);')
@@ -75,15 +78,15 @@ def insertDB():
     sql.append('INSERT INTO sensor(id,address,x,y,title,info,type_id)VALUES(-2,-1,0,0," ","Выход из системы",0);')
     sql.append('INSERT INTO sensor(id,address,x,y,title,info,type_id)VALUES(-3,-1,0,0," ","Авторизация",0);')
     #Датчики
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(161,717,343,"Место хранеия кислоты","U2.1",2);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(161,717,259,"Место хранеия кислоты","U2.2",2);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(162,273,247,"Травильные ванны","U2.3",2);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(162,120,222,"Травильные ванны","U2.4",2);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(163,585,327,"Место хранеия кислоты","VTM1",6);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(164,30,217,"Травильные ванны","VTM2",6);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(165,30,264,"Травильные ванны","VTM3",6);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(166,690,350,"Место хранеия кислоты","U3.1",5);')
-    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id)VALUES(166,640,350,"Место хранеия кислоты","U3.2",5);')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(161,717,343,"Место хранеия кислоты","U2.1",2,"|tv_vitikkislotyVK.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(161,717,259,"Место хранеия кислоты","U2.2",2,"|tv_vitikkislotyVK.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(162,273,247,"Травильные ванны","U2.3",2,"|tv_vitikkislotyTV.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(162,120,222,"Травильные ванны","U2.4",2,"|tv_vitikkislotyTV.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(163,585,327,"Место хранеия кислоты","VTM1",6,"|tv_ns.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(164,30,217,"Травильные ванны","VTM2",6,"|tv_ns.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(165,30,264,"Травильные ванны","VTM3",6,"|tv_ns.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(166,690,350,"Место хранеия кислоты","U3.1",5,"kpk1.wav|kpk2.wav|error.wav|chimes.wav","");')
+    sql.append('INSERT INTO sensor(address,x,y,info,title,type_id,sounds,commands)VALUES(166,640,350,"Место хранеия кислоты","U3.2",5,"kpk1.wav|kpk2.wav|error.wav|chimes.wav","");')
 
     sql.append('INSERT INTO level(id,title,info)VALUES(0,"","системная");')
     sql.append('INSERT INTO level(id,title,info)VALUES(1,"Порог I","докритичесикй");')

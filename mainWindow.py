@@ -1,6 +1,6 @@
 #!-*-coding:utf-8-*-
 import sys
-
+import os
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -32,6 +32,7 @@ class MainWindow(QMainWindow):
     s_leve=-1 # Сотояние датчика (уровень)
     s_id=-1   # ID датчика
     br_id=-1  # ID конопки резульат
+
 
     def __init__(self, parent=None):
         """
@@ -67,6 +68,14 @@ class MainWindow(QMainWindow):
         self.ui.actionHome.setChecked(True)
         self.ui.stackedWidget.setCurrentIndex(0)
         self.timer_Widget()
+         #----AudioPlayer-
+        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
+        self.m_media = Phonon.MediaObject(self)
+        self.ui.volumeSlider.setAudioOutput(self.output)
+        self.ui.seekSlider.setMediaObject(self.m_media)
+        Phonon.createPath(self.m_media,self.output)
+        #---------------
+
         if not connection.createConnection():
             sys.exit(1)
 
@@ -80,19 +89,23 @@ class MainWindow(QMainWindow):
         self.InitUserPage()
         self.ui.splitter.setStretchFactor(0,1)
         self.ui.splitter.setSizes([0])
-        self.ui.groupBox.hide()
+        #self.ui.groupBox.hide()
         self.SaveEvent('СТАРТ системы',-1,0,self.UserId,-1,-1)
+
+
 
         self.x305Read=x305Thread("COM7",1900,0.1)
         self.x305Read.notifyProgress.connect(self.setAlarm)
         self.x305Read.start()
+
+
 
     def timer_Widget(self):
         timerWidget = QWidget(self)
         self.spacer = QWidget(self)
         self.spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.lcd = QLCDNumber(self)
-        self.lcd.setNumDigits(10)
+        self.lcd.setNumDigits(8)
         self.lcd.setMinimumHeight(36)
         self.lcd.setMinimumWidth(150)
         self.dateLabel = QLabel(self)
@@ -170,9 +183,11 @@ class MainWindow(QMainWindow):
     def aUCS(self,m):
         self.saveStatusP(self.s_id,m,2)
         self.setTimerMode(0)
+        self.pBSZUOff()
     def aNCS(self,m):
         self.saveStatusP(self.s_id,m,3)
         self.setTimerMode(0)
+
 
     def bPrinaty(self):
         print('Нажата кнопка [Принять]')
@@ -189,13 +204,45 @@ class MainWindow(QMainWindow):
     def bNCS(self):
         print('Нажата кнопка [Отмена]')
         self.aNCS(2)
+        self.pBSZUOff()
+        self.m_media.stop()
 #Обработка клавиш принятия решения [Конец]------------------------------------------------------------------------------
+#----------NotifyPage---------------------------------------------------------------------------------------------------
+
+
+    def pBSirenaOn(self):
+        self.x305Read.setSZU(1)
+        text='Сирена'
+        self.ui.lineEditAOs.setText(text)
+        file='tv_ns.wav'
+        fn="sounds/{}".format(file)
+        if(os.path.exists(fn)==False):
+            print('Error: Файл"',fn,'" не найден!')
+        self.m_media.setCurrentSource(Phonon.MediaSource(fn))
+        self.ui.lineEditAOm.setText(file)
+        self.m_media.play()
+        self.ui.lineEditSZU.setText('СЗУ включено')
+
+    def pBSirenaOff(self):
+        self.m_media.stop()
+        self.x305Read.setSZU(0)
+        self.ui.lineEditSZU.setText('')
+    def pBSZUOn(self):
+        self.x305Read.setSZU(1)
+        self.ui.lineEditSZU.setText('СЗУ включено')
+
+    def pBSZUOff(self):
+        self.x305Read.setSZU(0)
+        self.ui.lineEditSZU.setText('')
 #----------HomePage-----------------------------------------------------------------------------------------------------
-    def sensorSymbol(self,ids,adr,x,y,size,level,types):
-        item=SensorAlarm(0,0,size,level,types)
+    def sensorSymbol(self,ids,adr,x,y,size,level,types,sounds,commands):
+        item=SensorAlarm(0,0,size,level,types,sounds,commands)
         item.setPos(x,y)
         item.id= ids
         item.address=adr
+        item.sounds=sounds
+        item.commands=commands
+
         self.scene.addItem(item)
         self.GI.append(item)
     def initGraphics(self):
@@ -215,12 +262,13 @@ class MainWindow(QMainWindow):
             x = query.value(4)
             y = query.value(5)
             tp= query.value(6)
-
-            print('x=',x,'y=',y)
+            sounds= query.value(7)
+            commands=query.value(8)
+            #print('x=',x,'y=',y)
             ids=query.value(0)
             adr =query.value(1)
 
-            self.sensorSymbol(ids,adr,x,y,size,3,tp)
+            self.sensorSymbol(ids,adr,x,y,size,33,tp,sounds,commands)
             #
 
 
@@ -240,7 +288,7 @@ class MainWindow(QMainWindow):
         for p in self.GI:
             x = p.pos().x()
             y = p.pos().y()
-            print('x=',x,'y=',y)
+            #print('x=',x,'y=',y)
             txt='update sensor SET x={}, y={} where id={}'.format(x,y,p.id)
             if(query.exec_(txt)==False):
                 print(query.lastError().text())
@@ -280,7 +328,7 @@ class MainWindow(QMainWindow):
         output.setVolume(100/100)
         m_media = Phonon.MediaObject(self)
         Phonon.createPath(m_media, output)
-        m_media.setCurrentSource(Phonon.MediaSource("sounds/1.ogg"))
+        m_media.setCurrentSource(Phonon.MediaSource("sounds/1.wav"))
         m_media.play()
 
 
@@ -291,16 +339,43 @@ class MainWindow(QMainWindow):
     def setAlarm(self,sensor_address, sensor_level):
         for p in self.GI:
             if(p.address==sensor_address):
+                old_level=p.level
                 p.setLevel(sensor_level)
                 x=p.pos().x()
                 y=p.pos().y()
                 id_s=p.id
+                sounds=p.sounds.split('|')
+        if(sensor_level in [1,2]):
 
 
+            self.pBSZUOn()
+            self.m_media.stop()
+            fn="sounds/{}".format(sounds[sensor_level-1])
+            if(os.path.exists(fn)==False):
+                print('Error: Файл"',fn,'" не найден!')
+            self.m_media.setCurrentSource(Phonon.MediaSource(fn))
+            self.m_media.play()
 
-
-
-        self.SaveEvent('Датчик',id_s,sensor_level,self.UserId,0,-1)
+        #---33 Уровень равный при первом запуске системы
+        if(old_level==33 and not sensor_level in [1,2]):
+            st=1
+            sb=0
+        else:
+            st=0
+            sb=-1
+        self.SaveEvent('Датчик',id_s,sensor_level,self.UserId,st,sb)
+        #Информаци для плеера
+        if(sensor_level in [1,2]):
+            self.ui.lineEditAOm.setText(sounds[sensor_level-1])
+            #---------------------------------------------------------------------------------------------------
+            fields='sensor.info, stype.info, level.title, event.created, event.id,level.id'
+            where='WHERE((event.status_id=0)and(level.id in(1,2,3,4)))'
+            sql=self.formatSqlEvent(fields,where)
+            query = QtSql.QSqlQuery(sql)
+            if(query.next()):
+                text = '{}, {}, {} '.format(query.value(0),query.value(1),query.value(2))
+                self.ui.lineEditAOs.setText(text)
+            #---------------------------------------------------------------------------------
         self.getMessageDB()
 #----Функция обработки накомпленных сообщений  о сработке---------------------------------------------------------------
     def getMessageDB(self):
@@ -335,7 +410,7 @@ class MainWindow(QMainWindow):
         query = QtSql.QSqlQuery(sql)
         self.tableEventModel.setQuery( self.tableEventModel.query().lastQuery() )
         self.br_id=button
-        print(sql)
+        #print(sql)
 #--------Event_page-----------------------------------------------------------------------------------------------------
 
     def formatSqlEvent(self,fields,where):
@@ -352,14 +427,14 @@ class MainWindow(QMainWindow):
         return result
 
     def CreateTableEvent(self):
-        self.tableEventModel = QSqlQueryColorModel(self)
+        self.tableEventModel = QSqlQueryColorModel(1,self)
         fields='event.created,sensor.info,stype.title,level.id,level.title,event.info,user.username,' \
                'status.title as "Принято",' \
                'button.title as "Ситуация"'
         sql=self.formatSqlEvent(fields,'')
-        print('Ev=',sql)
+        #print('Ev=',sql)
 
-        print(self.tableEventModel.setQuery(sql))
+        self.tableEventModel.setQuery(sql)
         """
         columns:
             0:event.created,
@@ -396,7 +471,7 @@ class MainWindow(QMainWindow):
         query = QtSql.QSqlQuery()
         sql='INSERT INTO  event(info,sensor_id, level_id, user_id, status_id, button_result_id)' \
             'VALUES("{}",{},{},{},{},{});'.format(info,sensor_id,level_id,user_id,status_id,button_result_id)
-        print(query.exec_(sql),'SQL=',sql)
+        query.exec_(sql)
         self.tableEventModel.setQuery( self.tableEventModel.query().lastQuery() )
 
 #--------Event Page End-------------------------------------------------------------------------------------------------
@@ -451,13 +526,13 @@ if __name__ == '__main__':
 
     sshFile="./darkorange.stylesheet"
     sshFile="styles/qmc2-black-0.10/qmc2-black-0.10.qss"
-    sshFile="styles/qmc2-xmas-0.5/qmc2-xmas-0.5.qss"
+    #sshFile="styles/qmc2-xmas-0.5/qmc2-xmas-0.5.qss"
     #sshFile="styles/qmc2-machinery-0.3/qmc2-machinery-0.3.qss"
     #sshFile="styles/qmc2-fire-0.8/qmc2-fire-0.8.qss "
     sshFile="styles/qmc2-metal-0.9/qmc2-metal-0.9.qss"
     with open(sshFile,"r") as fh:
         app.setStyleSheet(fh.read())
-    #app.setStyle('plastique')
+    app.setStyle('plastique')
     #originalPalette = QApplication.palette()
     #app.setPalette(QApplication.style().standardPalette())
     #app.setPalette(originalPalette)

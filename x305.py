@@ -2,7 +2,7 @@ import time
 import serial
 from PyQt4 import QtCore
 class x305Thread(QtCore.QThread):
-    szuon=b'\x10\x03\x01\x01\x00\xda'
+    szuon=b'\x10\x03\x01\x02\x00\xda'
     szuoff=b'\x10\x03\x02\x01\x00\xda'
     WRcmd =b'\x10\x04\x01\xda'
     tk=5 # Время задержки сработки датчиков 
@@ -10,9 +10,32 @@ class x305Thread(QtCore.QThread):
     time=0
     lines=[[level,time],[level,time],[level,time],[level,time],[level,time],[level,time]]
     notifyProgress = QtCore.pyqtSignal(int,int)
+    enSZU = False
+    indexSZU = 0
     def __init__(self, serialPort,baudratePort,timeoutPort):
         QtCore.QThread.__init__(self)
         self.dongle = serial.Serial(port=serialPort,baudrate=baudratePort,timeout=timeoutPort,rtscts=0,xonxoff=0)
+    def setSZU(self,index):
+        self.indexSZU= index
+        self.enSZU=True
+
+
+    def SZU(self):
+
+        if(self.enSZU==True):
+
+            s=''
+            print('EnablesSZU')
+            if(self.indexSZU==0):
+                s=self.szuoff
+                print('EnableSZU')
+            else:
+                s=self.szuon
+                print('DisableSZU')
+            self.dongle.write(s)
+            s = self.dongle.readline()
+            self.enSZU=False
+
     def run(self):
         i=0
         while True:
@@ -27,6 +50,8 @@ class x305Thread(QtCore.QThread):
             #print('Read = ',s[4],' ',s[5])
             if(len(s)>5):
                 self.result(s)
+            self.SZU()
+
     #Задержка от ложных сработок        
     def compare(self,level,i):
         tv=time.time()

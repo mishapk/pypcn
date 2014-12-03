@@ -1,7 +1,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 class SensorAlarm(QGraphicsObject):
-    def __init__ (self, x , y, size,level, type, parent=None):
+    def __init__ (self, x , y, size,level, type,sounds,commands, parent=None):
         QGraphicsItem.__init__(self, parent)
         self.x=x
         self.y=y
@@ -9,6 +9,8 @@ class SensorAlarm(QGraphicsObject):
 
         self.level=level
         self.type = type
+        self.sounds=sounds
+        self.command=commands
         #self.setFlag(QGraphicsItem.ItemIsMovable)
         self.setAcceptDrops(True) #разрешаем таскать
         self.setAcceptHoverEvents (True)
@@ -23,7 +25,7 @@ class SensorAlarm(QGraphicsObject):
             color= QColor(0xff,0xa0,0x00)
         if(self.level==2):
             color=QColor(Qt.red)
-        if(self.level==3):
+        if(self.level in [3,33]):
             color=QColor(Qt.gray)
         if(self.level==4):
             color=QColor(Qt.green)
@@ -48,7 +50,7 @@ class SensorAlarm(QGraphicsObject):
             painter.setBrush(brush)
             painter.drawPolygon(pp)
 #Davlenie #3
-        if(self.type==3):
+        if(self.type == 3):
             k=0.6
             r=self.size*k
             ap=self.size/2 - r/2
