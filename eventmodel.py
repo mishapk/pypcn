@@ -1,6 +1,6 @@
 import sys
-from PyQt4 import QtCore, QtGui, QtSql
-from PyQt4.QtGui import QColor
+from PyQt5 import QtCore, QtGui, QtSql
+from PyQt5.QtGui import QColor
 class QSqlQueryColorModel(QtSql.QSqlQueryModel):
     def __init__(self,mode, parent = None):
         super(QSqlQueryColorModel, self).__init__(parent)

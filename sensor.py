@@ -1,6 +1,7 @@
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-class SensorAlarm(QGraphicsObject):
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+class SensorAlarm(QGraphicsItem):
     def __init__ (self, x , y, size,level, type,sounds,commands, parent=None):
         QGraphicsItem.__init__(self, parent)
         self.x=x

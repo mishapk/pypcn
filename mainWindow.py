@@ -2,10 +2,11 @@
 import sys
 import os
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4 import uic, QtCore, QtSql
-from PyQt4.phonon import Phonon
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5 import uic, QtCore, QtSql
+#from PyQt5.phonon import Phonon
 import connection
 
 
@@ -53,27 +54,33 @@ class MainWindow(QMainWindow):
 
         mapper = QSignalMapper(self)
 
-        self.connect(self.ui.actionHome, SIGNAL('triggered()'), mapper, SLOT('map()'))
-        self.connect(self.ui.actionNotify, SIGNAL('triggered()'), mapper, SLOT('map()'))
-        self.connect(self.ui.actionUsers, SIGNAL('triggered()'), mapper, SLOT('map()'))
-        self.connect(self.ui.actionEvents, SIGNAL('triggered()'), mapper, SLOT('map()'))
-        self.connect(self.ui.actionSettings, SIGNAL('triggered()'), mapper, SLOT('map()'))
+        self.ui.actionHome.triggered.connect(mapper.map)
+        self.ui.actionNotify.triggered.connect(mapper.map)
+        self.ui.actionUsers.triggered.connect(mapper.map)
+        self.ui.actionEvents.triggered.connect(mapper.map)
+        self.ui.actionSettings.triggered.connect(mapper.map)
+#        self.connect(self.ui.actionHome, SIGNAL('triggered()'), mapper, SLOT('map()'))
+       # self.connect(self.ui.actionNotify, SIGNAL('triggered()'), mapper, SLOT('map()'))
+       # self.connect(self.ui.actionUsers, SIGNAL('triggered()'), mapper, SLOT('map()'))
+      #  self.connect(self.ui.actionEvents, SIGNAL('triggered()'), mapper, SLOT('map()'))
+       # self.connect(self.ui.actionSettings, SIGNAL('triggered()'), mapper, SLOT('map()'))
         mapper.setMapping(self.ui.actionHome,0)
         mapper.setMapping(self.ui.actionNotify,1)
         mapper.setMapping(self.ui.actionEvents,2)
         mapper.setMapping(self.ui.actionUsers,3)
         mapper.setMapping(self.ui.actionSettings,4)
 
-        self.connect(mapper,SIGNAL("mapped(int)"),self.ui.stackedWidget,SLOT("setCurrentIndex(int)"))
+        mapper.mapped.connect(self.ui.stackedWidget.setCurrentIndex)
+       # self.connect(mapper,SIGNAL("mapped(int)"),self.ui.stackedWidget,SLOT("setCurrentIndex(int)"))
         self.ui.actionHome.setChecked(True)
         self.ui.stackedWidget.setCurrentIndex(0)
         self.timer_Widget()
          #----AudioPlayer-
-        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
-        self.m_media = Phonon.MediaObject(self)
-        self.ui.volumeSlider.setAudioOutput(self.output)
-        self.ui.seekSlider.setMediaObject(self.m_media)
-        Phonon.createPath(self.m_media,self.output)
+#        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
+  #      self.m_media = Phonon.MediaObject(self)
+#        self.ui.volumeSlider.setAudioOutput(self.output)
+#        self.ui.seekSlider.setMediaObject(self.m_media)
+#        Phonon.createPath(self.m_media,self.output)
         #---------------
 
         if not connection.createConnection():
@@ -454,7 +461,7 @@ class MainWindow(QMainWindow):
        
         self.ui.tableEvent.resizeColumnsToContents()
         self.ui.tableEvent.hideColumn(3)
-        self.ui.tableEvent.horizontalHeader().setResizeMode(5,QHeaderView.Stretch)
+        self.ui.tableEvent.horizontalHeader().setSectionResizeMode(5,QHeaderView.Stretch)
         self.tableEventModel.setHeaderData(0, Qt.Horizontal, "Дата/Время");
         self.tableEventModel.setHeaderData(1, Qt.Horizontal, "Расположение");
         self.tableEventModel.setHeaderData(2, Qt.Horizontal, "Датчик");
@@ -485,7 +492,7 @@ class MainWindow(QMainWindow):
         self.tmUser = QtSql.QSqlQueryModel(self)
         self.tmUser.setQuery('SELECT username FROM user WHERE(ID>0)ORDER BY id DESC')
         self.ui.tableUser.setModel(self.tmUser)
-        self.ui.tableUser.horizontalHeader().setResizeMode(0,QHeaderView.Stretch)
+        self.ui.tableUser.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch)
         self.ui.tableUser.verticalHeader().hide()
         self.ui.tableUser.setSelectionMode(QAbstractItemView.SingleSelection)
     def enterDigitButtonLogin(self):
@@ -544,7 +551,8 @@ if __name__ == '__main__':
     w.show()
 
     # connection
-    QObject.connect(app, SIGNAL('lastWindowClosed()'), app, SLOT('quit()'))
+    app.lastWindowClosed.connect(app.quit)
+    #QObject.connect(app, SIGNAL('lastWindowClosed()'), app, SLOT('quit()'))
 
     # execute application
     sys.exit(app.exec_())

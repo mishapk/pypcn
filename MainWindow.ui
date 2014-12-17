@@ -358,7 +358,7 @@ border: 1;
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
               <layout class="QGridLayout" name="gridLayout_5">
-               <item row="1" column="2">
+               <item row="1" column="1">
                 <widget class="QLineEdit" name="lineEditAOm">
                  <property name="readOnly">
                   <bool>true</bool>
@@ -379,24 +379,7 @@ border: 1;
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0" colspan="5">
-                <widget class="Phonon::SeekSlider" name="seekSlider">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="4" rowspan="2">
-                <widget class="Phonon::VolumeSlider" name="volumeSlider">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2" colspan="3">
+               <item row="0" column="1" colspan="2">
                 <widget class="QLineEdit" name="lineEditAOs">
                  <property name="readOnly">
                   <bool>true</bool>
@@ -438,7 +421,16 @@ border: 1;
              </item>
              <item>
               <layout class="QGridLayout" name="gridLayout_6" rowstretch="0,0" columnstretch="0,0">
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <property name="spacing">
@@ -960,18 +952,6 @@ border: 1;
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>Phonon::SeekSlider</class>
-   <extends>QWidget</extends>
-   <header location="global">phonon/seekslider.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Phonon::VolumeSlider</class>
-   <extends>QWidget</extends>
-   <header location="global">phonon/volumeslider.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="myres.qrc"/>
  </resources>

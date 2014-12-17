@@ -1,6 +1,6 @@
 import time
 import serial
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 class x305Thread(QtCore.QThread):
     szuon=b'\x10\x03\x01\x02\x00\xda'
     szuoff=b'\x10\x03\x02\x01\x00\xda'
@@ -93,6 +93,6 @@ class x305Thread(QtCore.QThread):
 
     def func(self,num, pos):
         return (num & (1 << pos)) >> pos
-    def __del__(self):
-        self.dongle.close()
+    #def __del__(self):
+#        self.dongle.close()
 

@@ -1,4 +1,4 @@
-from PyQt4 import QtSql, QtGui
+from PyQt5 import QtSql, QtGui
 import os
 def createConnection():
     db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
