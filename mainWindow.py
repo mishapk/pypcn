@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5 import uic, QtCore, QtSql
+from PyQt5.QtMultimedia import (QMediaPlayer,QMediaContent)
 #from PyQt5.phonon import Phonon
 import connection
 
@@ -59,11 +60,7 @@ class MainWindow(QMainWindow):
         self.ui.actionUsers.triggered.connect(mapper.map)
         self.ui.actionEvents.triggered.connect(mapper.map)
         self.ui.actionSettings.triggered.connect(mapper.map)
-#        self.connect(self.ui.actionHome, SIGNAL('triggered()'), mapper, SLOT('map()'))
-       # self.connect(self.ui.actionNotify, SIGNAL('triggered()'), mapper, SLOT('map()'))
-       # self.connect(self.ui.actionUsers, SIGNAL('triggered()'), mapper, SLOT('map()'))
-      #  self.connect(self.ui.actionEvents, SIGNAL('triggered()'), mapper, SLOT('map()'))
-       # self.connect(self.ui.actionSettings, SIGNAL('triggered()'), mapper, SLOT('map()'))
+
         mapper.setMapping(self.ui.actionHome,0)
         mapper.setMapping(self.ui.actionNotify,1)
         mapper.setMapping(self.ui.actionEvents,2)
@@ -76,6 +73,9 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(0)
         self.timer_Widget()
          #----AudioPlayer-
+        self.Player= QMediaPlayer(self)
+        self.ui.toolButtonMute.setIcon(self.style().standardIcon(QStyle.SP_MediaVolume))
+
 #        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
   #      self.m_media = Phonon.MediaObject(self)
 #        self.ui.volumeSlider.setAudioOutput(self.output)
@@ -225,13 +225,15 @@ class MainWindow(QMainWindow):
         fn="sounds/{}".format(file)
         if(os.path.exists(fn)==False):
             print('Error: Файл"',fn,'" не найден!')
-        self.m_media.setCurrentSource(Phonon.MediaSource(fn))
+
+        self.Player.stop()
+        self.Player.setMedia(QMediaContent(QUrl.fromLocalFile(fn)))
         self.ui.lineEditAOm.setText(file)
-        self.m_media.play()
+        self.Player.play()
         self.ui.lineEditSZU.setText('СЗУ включено')
 
     def pBSirenaOff(self):
-        self.m_media.stop()
+        self.Player.stop()
         self.x305Read.setSZU(0)
         self.ui.lineEditSZU.setText('')
     def pBSZUOn(self):
