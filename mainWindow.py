@@ -5,8 +5,9 @@ import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import uic, QtCore, QtSql
-from PyQt4.phonon import Phonon
+import pyaudio
 import connection
+import Player
 
 
 from sensor import SensorAlarm
@@ -69,11 +70,14 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(0)
         self.timer_Widget()
          #----AudioPlayer-
-        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
-        self.m_media = Phonon.MediaObject(self)
-        self.ui.volumeSlider.setAudioOutput(self.output)
-        self.ui.seekSlider.setMediaObject(self.m_media)
-        Phonon.createPath(self.m_media,self.output)
+        self.player=Player.MPlayer()
+
+        self.ui.VAO.addWidget(self.player)
+#        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
+#        self.m_media = Phonon.MediaObject(self)
+#        self.ui.volumeSlider.setAudioOutput(self.output)
+#        self.ui.seekSlider.setMediaObject(self.m_media)
+#        Phonon.createPath(self.m_media,self.output)
         #---------------
 
         if not connection.createConnection():

@@ -355,55 +355,9 @@ border: 1;
             <property name="title">
              <string>Аудио оповещение</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_9">
+            <layout class="QVBoxLayout" name="VAO">
              <item>
-              <layout class="QGridLayout" name="gridLayout_5">
-               <item row="1" column="2">
-                <widget class="QLineEdit" name="lineEditAOm">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label">
-                 <property name="text">
-                  <string>Датчик:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_2">
-                 <property name="text">
-                  <string>Сообщение</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0" colspan="5">
-                <widget class="Phonon::SeekSlider" name="seekSlider">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="4" rowspan="2">
-                <widget class="Phonon::VolumeSlider" name="volumeSlider">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2" colspan="3">
-                <widget class="QLineEdit" name="lineEditAOs">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <layout class="QVBoxLayout" name="VAO_2"/>
              </item>
             </layout>
            </widget>
@@ -960,18 +914,6 @@ border: 1;
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>Phonon::SeekSlider</class>
-   <extends>QWidget</extends>
-   <header location="global">phonon/seekslider.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Phonon::VolumeSlider</class>
-   <extends>QWidget</extends>
-   <header location="global">phonon/volumeslider.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="myres.qrc"/>
  </resources>
