@@ -1,7 +1,7 @@
 import audioop
 import math
 
-import numpy
+import numpy, wave, sys
 import pyaudio
 from PyQt4.QtCore import *
 from PyQt4.QtGui import (QWidget, QFrame, QGridLayout, QLabel, QLineEdit, QSlider, QGroupBox, QCheckBox, QProgressBar,
@@ -120,17 +120,22 @@ class RThread(QThread):
     def player(self):
         CHUNK = 1024
         FORMAT = pyaudio.paInt24
-        CHANNELS = 2
-        RATE = 44100
+        CHANNELS = 1
+        RATE = 8000
         RECORD_SECONDS = 5
+        WAVE_OUTPUT_FILENAME = "output.wav"
+
+        if sys.platform == 'darwin':
+            CHANNELS = 1
         p = pyaudio.PyAudio()
-        p2 = pyaudio.PyAudio()
+
 
         stream = p.open(format=FORMAT,
                         channels=CHANNELS,
                         rate=RATE,
                         input=True,
                         frames_per_buffer=CHUNK)
+        p2 = pyaudio.PyAudio()
         stream2 = p2.open(format=FORMAT,
                           channels=CHANNELS,
                           rate=RATE,
@@ -139,13 +144,17 @@ class RThread(QThread):
         print("* recording")
 
         frames = []
+
         m = 0
         for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-            data = 0
             data = stream.read(CHUNK)
 
-            rms = audioop.rms(data, 2)
-            k = 20 * math.log10(rms)
+            decodedata = numpy.fromstring(data, numpy.int16)
+            newdata = (decodedata * 1).astype(numpy.int16)
+            nd = newdata.tostring()
+            frames.append(nd)
+            rms = audioop.max(nd, 2)
+            k = rms*100/2**15
 
             m = max(rms, m, )
             print(k, ' ', rms, )
@@ -159,7 +168,7 @@ class RThread(QThread):
                 nd = newdata.tostring()
                 # stream2.write(nd)
             else:
-                frames.append(data)
+                pass
                 # $if not self.mode:
                 # for data in frames:
                 # stream2.write(data)
@@ -172,6 +181,13 @@ class RThread(QThread):
         stream2.close()
         p.terminate()
         p2.terminate()
+        wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(p.get_sample_size(FORMAT))
+        wf.setframerate(RATE)
+
+        wf.writeframes(b''.join(frames))
+        wf.close()
 
     def run(self):
         self.player()

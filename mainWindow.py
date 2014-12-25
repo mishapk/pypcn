@@ -7,7 +7,7 @@ from PyQt4.QtGui import *
 from PyQt4 import uic, QtCore, QtSql
 import pyaudio
 import connection
-import Player
+import record
 
 
 from sensor import SensorAlarm
@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(0)
         self.timer_Widget()
          #----AudioPlayer-
-        self.player=Player.MPlayer()
+        self.player=record.AOPlayer()
 
         self.ui.VAO.addWidget(self.player)
 #        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
