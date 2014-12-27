@@ -5,7 +5,7 @@ import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import uic, QtCore, QtSql
-import pyaudio
+
 import connection
 import record
 
@@ -73,11 +73,7 @@ class MainWindow(QMainWindow):
         self.player=record.AOPlayer()
 
         self.ui.VAO.addWidget(self.player)
-#        self.output = Phonon.AudioOutput(Phonon.MusicCategory,self)
-#        self.m_media = Phonon.MediaObject(self)
-#        self.ui.volumeSlider.setAudioOutput(self.output)
-#        self.ui.seekSlider.setMediaObject(self.m_media)
-#        Phonon.createPath(self.m_media,self.output)
+
         #---------------
 
         if not connection.createConnection():
@@ -98,7 +94,7 @@ class MainWindow(QMainWindow):
 
 
 
-        self.x305Read=x305Thread("COM7",1900,0.1)
+        self.x305Read=x305Thread("/dev/COM6",19200,0.1)
         self.x305Read.notifyProgress.connect(self.setAlarm)
         self.x305Read.start()
 
@@ -217,20 +213,21 @@ class MainWindow(QMainWindow):
     def pBSirenaOn(self):
         self.x305Read.setSZU(1)
         text='Сирена'
-        self.ui.lineEditAOs.setText(text)
+
+
         file='tv_ns.wav'
         fn="sounds/{}".format(file)
         if(os.path.exists(fn)==False):
             print('Error: Файл"',fn,'" не найден!')
-        self.m_media.setCurrentSource(Phonon.MediaSource(fn))
-        self.ui.lineEditAOm.setText(file)
-        self.m_media.play()
+
+        self.player.PlaySound(fn,text)
         self.ui.lineEditSZU.setText('СЗУ включено')
 
     def pBSirenaOff(self):
-        self.m_media.stop()
+        self.player.Stop()
         self.x305Read.setSZU(0)
         self.ui.lineEditSZU.setText('')
+
     def pBSZUOn(self):
         self.x305Read.setSZU(1)
         self.ui.lineEditSZU.setText('СЗУ включено')
@@ -323,22 +320,9 @@ class MainWindow(QMainWindow):
 
 
     def playAnimation(self):
-        #x=self.item.pos().x()
-        #y=self.item.pos().y()
-        #self.targetAlarm.animatePos(QPointF(x-20,y-20),QPointF(x+20,y+20))
-        self.setAlarm(162,2)
-        output = Phonon.AudioOutput(Phonon.MusicCategory,self)
-        print('volume=',output.volume())
-        output.setVolume(100/100)
-        m_media = Phonon.MediaObject(self)
-        Phonon.createPath(m_media, output)
-        m_media.setCurrentSource(Phonon.MediaSource("sounds/1.wav"))
-        m_media.play()
 
+        self.player.PlaySound('sounds/1.wav','')
 
-        #self.player = Phonon.createPlayer(Phonon.MusicCategory)
-        #self.player.setCurrentSource(Phonon.MediaSource("sounds/1.wav"))
-        #self.player.play()
 #Слот сигнала новых сработок
     def setAlarm(self,sensor_address, sensor_level):
         for p in self.GI:
@@ -349,16 +333,7 @@ class MainWindow(QMainWindow):
                 y=p.pos().y()
                 id_s=p.id
                 sounds=p.sounds.split('|')
-        if(sensor_level in [1,2]):
 
-
-            self.pBSZUOn()
-            self.m_media.stop()
-            fn="sounds/{}".format(sounds[sensor_level-1])
-            if(os.path.exists(fn)==False):
-                print('Error: Файл"',fn,'" не найден!')
-            self.m_media.setCurrentSource(Phonon.MediaSource(fn))
-            self.m_media.play()
 
         #---33 Уровень равный при первом запуске системы
         if(old_level==33 and not sensor_level in [1,2]):
@@ -370,16 +345,23 @@ class MainWindow(QMainWindow):
         self.SaveEvent('Датчик',id_s,sensor_level,self.UserId,st,sb)
         #Информаци для плеера
         if(sensor_level in [1,2]):
-            self.ui.lineEditAOm.setText(sounds[sensor_level-1])
+
             #---------------------------------------------------------------------------------------------------
             fields='sensor.info, stype.info, level.title, event.created, event.id,level.id'
             where='WHERE((event.status_id=0)and(level.id in(1,2,3,4)))'
             sql=self.formatSqlEvent(fields,where)
             query = QtSql.QSqlQuery(sql)
+            text=''
             if(query.next()):
                 text = '{}, {}, {} '.format(query.value(0),query.value(1),query.value(2))
-                self.ui.lineEditAOs.setText(text)
+
+            self.pBSZUOn()
+            fn="sounds/{}".format(sounds[sensor_level-1])
+            if(os.path.exists(fn)==False):
+                print('Error: Файл"',fn,'" не найден!')
+            self.player.PlaySound(fn,text)
             #---------------------------------------------------------------------------------
+
         self.getMessageDB()
 #----Функция обработки накомпленных сообщений  о сработке---------------------------------------------------------------
     def getMessageDB(self):

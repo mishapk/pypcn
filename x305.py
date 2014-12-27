@@ -45,6 +45,7 @@ class x305Thread(QtCore.QThread):
             s=self.WRcmd
             #print('Write=',s)
             self.dongle.write(s)
+            #print(s)
             #time.sleep(0.1)
             s = self.dongle.readline()
             #print('Read = ',s[4],' ',s[5])
@@ -94,5 +95,6 @@ class x305Thread(QtCore.QThread):
     def func(self,num, pos):
         return (num & (1 << pos)) >> pos
     def __del__(self):
-        self.dongle.close()
+        #self.dongle.close()
+        pass
 
