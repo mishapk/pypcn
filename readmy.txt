@@ -1,3 +1,7 @@
+Настройки связки виртуальных портов:
+socat PTY,link=/dev/COM6,user=mishapk,group=dialout PTY,link=/dev/COM7,user=mishapk,group=dialout
+Выполнять от имени root
+
 Задачи по проекту:
 
 
