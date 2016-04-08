@@ -1,5 +1,6 @@
 import time
 import serial
+import struct
 from PyQt4 import QtCore
 class x305Thread(QtCore.QThread):
     szuon=b'\x10\x03\x01\x02\x00\xda'
@@ -8,7 +9,7 @@ class x305Thread(QtCore.QThread):
     tk=5 # Время задержки сработки датчиков 
     level=-100
     time=0
-    lines=[[level,time],[level,time],[level,time],[level,time],[level,time],[level,time]]
+    lines=[[level,time],[level,time],[level,time],[level,time],[level,time],[level,time],[level,time],[level,time]]
     notifyProgress = QtCore.pyqtSignal(int,int)
     enSZU = False
     indexSZU = 0
@@ -55,6 +56,7 @@ class x305Thread(QtCore.QThread):
     #Задержка от ложных сработок        
     def compare(self,level,i):
         tv=time.time()
+        print(self.lines)
         if(self.lines[i][0]!=level):
             if(self.lines[i][1]==0):
                 self.lines[i][1]=tv
@@ -70,29 +72,75 @@ class x305Thread(QtCore.QThread):
 
     def result(self,bl):
         s=''
+
+        if bl[0]!=0x10: return
+        print(bl)
+        print(bl[4:4+4])
+
+       # Range 0-4 input X305
         for i in range(0,5):
-            if(self.func(bl[4],i)==1):
-                level=2
-            else:
-                level=4
-            if(self.func(bl[5],i)==1):
-                level=3
-            s=s+' i'+str(i)+'='+str(level)
-            self.compare(level,i)
-        ##----SS-903
-        level=4
-        if(self.func(bl[4],5)==1):
-            level=1
-        if(self.func(bl[4],6)==1):
-            level=2
-        if((self.func(bl[4],7)==1)or(self.func(bl[5],5)==1)or(self.func(bl[5],6)==1)):
-            level=3
-        s=s+' i'+str(5)+'='+str(level)
-        self.compare(level,5)
-        #print('S=',s)
+            rf=self.bytes32ToFloat(bl[i*4+4:i*4+4+4])
+       #nek 1,2,3,4
+            if i in [0,1]:
+                if 2.1<=rf<=2.5:
+                    self.compare(2,i*2)
+                    self.compare(4,i*2+1)
+
+                elif 2.8<=rf<=3.2:
+                    self.compare(4,i*2)
+                    self.compare(2,i*2+1)
+
+                elif 4.6<=rf<=5:
+                    self.compare(2,i*2)
+                    self.compare(2,i*2+1)
+
+                elif 1.6<=rf<=2:
+                    self.compare(4,i*2)
+                    self.compare(4,i*2+1)
+                else:
+                    self.compare(3,i*2)
+                    self.compare(3,i*2+1)
+        #Rv-1,3
+            if i in [2,3,4]:
+                if 1.4<=rf<=2.4:
+                    self.compare(2,i+2)
+                elif 3.1<=rf<=4.1:
+                   self.compare(4,i+2)
+                else:
+                    self.compare(3,i+2)
+         #SSS-903m
+
+        rf1=self.bytes32ToFloat(bl[5*4+4:5*4+4+4])
+        rf2=self.bytes32ToFloat(bl[6*4+4:6*4+4+4])
+        p3=bl[32]
+
+        if 1.4<rf1<2.4:
+            p1=2
+        elif 3.1<rf1<4.1:
+            p1=4
+        else:
+            p1=3
+        if 1.4<rf2<2.4:
+            p2=2
+        elif 3.1<rf2<4.1:
+            p2=4
+        else:
+            p2=3
+
+        if p1==3 or p2==3 or p3==0:
+            self.compare(3,7)
+        elif p2==2:
+            self.compare(2,7)
+        elif p1==2:
+            self.compare(1,7)
+        else:
+            self.compare(4,7)
 
     def func(self,num, pos):
         return (num & (1 << pos)) >> pos
+    def bytes32ToFloat(self, arg):
+        return struct.unpack('f',arg)[0]
+
     def __del__(self):
         self.dongle.close()
 
